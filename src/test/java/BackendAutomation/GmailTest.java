@@ -30,6 +30,6 @@ public class GmailTest extends GmailOperations{
         //Search form email and read the content
         //You can send and email to "testuserpentaloghomework1@gmail.com" to validate the functionality
         //Make sure you search for text in the body of the email you sent before
-        searchAndDeleteEmail("DO NOT DELETE!");
+        searchAndDeleteEmail("DELETE!");
     }
 }
