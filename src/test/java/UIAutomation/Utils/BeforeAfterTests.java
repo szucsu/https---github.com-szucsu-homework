@@ -1,5 +1,5 @@
 
-package Utils;
+package UIAutomation.Utils;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;

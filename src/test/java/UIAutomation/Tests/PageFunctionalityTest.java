@@ -1,9 +1,9 @@
-package Tests;
+package UIAutomation.Tests;
 
-import Pages.CheckoutPage;
-import Utils.BeforeAfterTests;
-import Pages.HomePage;
-import Utils.Login;
+import UIAutomation.Pages.CheckoutPage;
+import UIAutomation.Utils.BeforeAfterTests;
+import UIAutomation.Utils.Login;
+import UIAutomation.Pages.HomePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

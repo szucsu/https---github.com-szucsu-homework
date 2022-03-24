@@ -1,6 +1,6 @@
-package Utils;
+package UIAutomation.Utils;
 
-import Pages.LoginPage;
+import UIAutomation.Pages.LoginPage;
 
 public class Login extends BeforeAfterTests {
 

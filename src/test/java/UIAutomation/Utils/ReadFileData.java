@@ -1,4 +1,4 @@
-package Utils;
+package UIAutomation.Utils;
 
 import java.io.File;
 import java.io.FileInputStream;

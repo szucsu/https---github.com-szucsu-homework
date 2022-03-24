@@ -1,7 +1,7 @@
-package Pages;
+package UIAutomation.Pages;
 
 
-import Utils.BeforeAfterTests;
+import UIAutomation.Utils.BeforeAfterTests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
