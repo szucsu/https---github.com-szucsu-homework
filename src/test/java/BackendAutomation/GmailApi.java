@@ -24,38 +24,11 @@ import java.util.Map;
 
 public class GmailApi {
 
-
-    /*
-    1.Get code :
-https://accounts.google.com/o/oauth2/v2/auth?
- scope=https://mail.google.com&
- access_type=offline&
- redirect_uri=http://localhost&
- response_type=code&
- client_id=[Client ID]
-2. Get access_token and refresh_token
- curl \
---request POST \
---data "code=[Authentcation code from authorization link]&client_id=[Application Client Id]&client_secret=[Application Client Secret]&redirect_uri=http://localhost&grant_type=authorization_code" \
-https://accounts.google.com/o/oauth2/token
-3.Get new access_token using refresh_token
-curl \
---request POST \
---data "client_id=[your_client_id]&client_secret=[your_client_secret]&refresh_token=[refresh_token]&grant_type=refresh_token" \
-https://accounts.google.com/o/oauth2/token
-
-*/
     private static final String APPLICATION_NAME = "Gmail Api";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final String user = "me";
     static Gmail service = null;
     private static File filePath = new File(System.getProperty("user.dir") +  File.separator + "Resources" + File.separator + "Credentials.json");
-
-    public static void main(String[] args) throws IOException, GeneralSecurityException {
-
-        getGmailService();
-        getMailBody("Google");
-    }
 
     public static void getMailBody(String searchString) throws IOException {
 
@@ -74,6 +47,23 @@ https://accounts.google.com/o/oauth2/token
                 .newStringUtf8(Base64.decodeBase64(message.getPayload().getParts().get(0).getBody().getData()));
 
         System.out.println("Email body : " + emailBody);
+    }
+
+    public static void deleteMailFromInbox(String searchString) throws IOException {
+
+        // Access Gmail inbox
+        Gmail.Users.Messages.List request = service.users().messages().list(user).setQ(searchString);
+
+        ListMessagesResponse messagesResponse = request.execute();
+        request.setPageToken(messagesResponse.getNextPageToken());
+
+        // Get ID of the email you are looking for
+        String messageId = messagesResponse.getMessages().get(0).getId();
+
+        // Delete email
+        service.users().messages().delete(user, messageId).execute();
+
+        System.out.println("Email was deleted!");
     }
 
     public static Gmail getGmailService() throws IOException, GeneralSecurityException {

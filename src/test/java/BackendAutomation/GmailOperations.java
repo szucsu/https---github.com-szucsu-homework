@@ -15,15 +15,6 @@ import java.util.Properties;
 
 public class GmailOperations {
 
-    public static void sendMessage(Gmail service, String userId, MimeMessage email)
-            throws MessagingException, IOException {
-        Message message = createMessageWithEmail(email);
-        message = service.users().messages().send(userId, message).execute();
-
-        System.out.println("Message id: " + message.getId());
-        System.out.println(message.toPrettyString());
-    }
-
     public static Message createMessageWithEmail(MimeMessage email) throws MessagingException, IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         email.writeTo(baos);
@@ -48,10 +39,10 @@ public class GmailOperations {
         return email;
     }
 
-    public static void sendEmail() throws IOException, GeneralSecurityException, MessagingException {
+    public static void sendEmail(String To, String From, String Subject, String BodyText) throws IOException, GeneralSecurityException, MessagingException {
 
         Gmail service = GmailApi.getGmailService();
-        MimeMessage Mimemessage = createEmail("emilian.vicovan@gmail.com","me","This my demo test subject","HAHAHAHAHA AM REUSIT!!!");
+        MimeMessage Mimemessage = createEmail(To,From,Subject,BodyText);
 
         Message message = createMessageWithEmail(Mimemessage);
 
@@ -61,9 +52,15 @@ public class GmailOperations {
         System.out.println(message.toPrettyString());
     }
 
-    public static void main(String[] args) throws IOException, GeneralSecurityException, MessagingException {
+    public static void searchAndReadEmail(String searchString) throws IOException, GeneralSecurityException {
 
-        sendEmail();
+        GmailApi.getGmailService();
+        GmailApi.getMailBody(searchString);
+    }
 
+    public static void searchAndDeleteEmail(String searchString) throws IOException, GeneralSecurityException {
+
+        GmailApi.getGmailService();
+        GmailApi.deleteMailFromInbox(searchString);
     }
 }
